@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+import logging
 
 from app.api.api import api_router
 from app.core.config import API_V1_STR
@@ -26,8 +27,13 @@ app.include_router(api_router, prefix=API_V1_STR)
 
 @app.on_event("startup")
 def startup_event():
-    db = next(get_db())
-    init_db(db)
+    try:
+        db = next(get_db())
+        init_db(db)
+    except Exception as e:
+        logging.warning(f"Database connection failed: {e}")
+        logging.warning("Application will start, but database functionality will not be available.")
+        logging.warning("Please ensure PostgreSQL is running and connection details are correct.")
 
 @app.get("/")
 def root():
