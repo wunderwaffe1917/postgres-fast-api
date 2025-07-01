@@ -1,12 +1,12 @@
 # FastAPI PostgreSQL Service
 
-A FastAPI service that connects to a PostgreSQL database with JWT authentication and Swagger documentation.
+A FastAPI service that connects to a PostgreSQL database with permanent JWT authentication and Swagger documentation.
 
 ## Features
 
 - FastAPI framework for high-performance API development
 - PostgreSQL database integration
-- JWT authentication
+- Permanent JWT authentication (non-expiring tokens)
 - Swagger UI documentation
 - Docker deployment
 - Environment variable configuration
@@ -41,7 +41,6 @@ A FastAPI service that connects to a PostgreSQL database with JWT authentication
    # JWT settings
    SECRET_KEY=your_secret_key_here
    ALGORITHM=HS256
-   ACCESS_TOKEN_EXPIRE_MINUTES=30
    ```
 
 ## Running with Docker
@@ -65,11 +64,11 @@ To authenticate, use the `/api/v1/login` endpoint with your username and passwor
 - Username: admin
 - Password: admin
 
-The API will return a JWT token that you can use for subsequent requests.
+The API will return a permanent JWT token (non-expiring) that you can use for subsequent requests.
 
 ## API Endpoints
 
-- `POST /api/v1/login` - Get JWT token
+- `POST /api/v1/login` - Get permanent JWT token
 - `GET /api/v1/users/me` - Get current user
 - `GET /api/v1/users` - List users (admin only)
 - `POST /api/v1/users` - Create user (admin only)
